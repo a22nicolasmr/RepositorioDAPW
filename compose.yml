@@ -1,8 +1,14 @@
 services:
-  web1:
-    image: httpd
+  #web1:
+  #image: httpd
+  #ports:
+  #  - 80:80
+  #  - 443:443
+  #volumes:
+  #   - ./html:/usr/local/apache2/htdocs
+  bd:
+    image: mysql
     ports:
-      - 80:80
-      - 443:443
-    volumes:
-      - ./html:/home/sanclemente.local/a22nicolasmr/RepositorioDAPW
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=abc123.
