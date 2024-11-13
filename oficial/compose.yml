@@ -1,0 +1,8 @@
+services:
+  web:
+    build: ./apache
+    ports:
+      - 80:80
+    volumes:
+      - ./etc/apache2/sites-enabled/test1.conf
+      - ./test1:/var/www/test1
