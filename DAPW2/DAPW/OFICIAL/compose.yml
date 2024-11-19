@@ -1,0 +1,10 @@
+services:
+  web:
+    build: apache
+    ports:
+      - "80:80"
+    volumes:
+      - ./apache/test1.conf:/etc/apache2/sites-available/test1.conf
+      - ./test1:/var/www/test1
+      - ./webantiga:/webantiga
+    command: /bin/bash -c "a2ensite test1.conf && apachectl -D FOREGROUND"
