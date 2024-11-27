@@ -1,0 +1,31 @@
+services:
+  web:
+    hostname: web
+    # image: httpd:latest
+    build: docker/apache
+    volumes:
+      - ./html:/web
+      - ./vhosts/server1:/etc/apache2/sites-enabled/server1.conf
+    # lugar donde montamos todo
+    networks:
+      rede_test:
+        aliases:
+          - www.proba.lan
+          - proba.lan
+          - server1.lan
+          - server2.lan
+          - www.server2.lan
+          - www.server1.lan
+
+  cliente:
+    hostname: cliente
+    build: cliente
+    networks:
+      - rede_test
+    environment:
+      - DISPLAY=${DISPLAY}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+
+networks:
+  rede_test:
