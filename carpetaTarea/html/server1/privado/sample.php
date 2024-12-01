@@ -1,2 +1,2 @@
 <?php
-  echo "Ola from PHP"
+echo "Ola from PHP";
