@@ -6,6 +6,8 @@ services:
     volumes:
       - ./html:/web
       - ./vhosts/server1:/etc/apache2/sites-enabled/server1.conf
+      - ./vhosts/server2:/etc/apache2/sites-enabled/server2.conf
+      - ./html/alias:/srv
     # lugar donde montamos todo
     networks:
       rede_test:
