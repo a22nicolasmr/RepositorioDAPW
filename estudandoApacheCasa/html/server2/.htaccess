@@ -1,0 +1,5 @@
+DirectoryIndex un.html tres.html c.html
+Require all granted
+Options Indexes
+
+ErrorDocument 404 /nonexiste.html
