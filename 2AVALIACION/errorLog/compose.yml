@@ -1,0 +1,30 @@
+services:
+  web:
+    # image: httpd:latest
+    build: ./docker/servidor
+    volumes:
+      - ./html:/web
+      - ./vhost1/server1.conf:/etc/apache2/sites-enabled/server1.conf
+      - ./vhost2/server2.conf:/etc/apache2/sites-enabled/server2.conf
+      - ./html/alias:/srv
+    networks:
+      rede_test:
+        aliases:
+          - www.proba.lan
+          - proba.lan
+          - server1.lan
+          - www.server1.lan
+          - www.server2.lan
+          - server2.lan
+
+  cliente:
+    build: ./docker/cliente
+    networks:
+      - rede_test
+    environment:
+    - DISPLAY=host.docker.internal:0.0
+    volumes:
+    - /tmp/.X11-unix:/tmp/.X11-unix
+
+networks:
+  rede_test:

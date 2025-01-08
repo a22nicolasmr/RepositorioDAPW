@@ -1,0 +1,5 @@
+Require all granted
+Options All
+<FilesMatch "\.(php)$">
+    Require all denied
+</FilesMatch>
