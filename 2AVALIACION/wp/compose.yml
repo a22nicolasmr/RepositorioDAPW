@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  web:
+    build: apache
+    hostname: web
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./app:/app
+      - ./apache/wordpress.conf:/etc/apache2/sites-enabled/wordpress.conf
+    networks:
+      rede_test:
+        aliases:
+          - tech.a22nicolasmr.tech
+
+  cliente:
+    hostname: cliente
+    image: brunosct/debian12-cliente-firefox
+    environment:
+      - DISPLAY=${DISPLAY}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    networks:
+      - rede_test
+
+networks:
+  rede_test:

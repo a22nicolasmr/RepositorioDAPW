@@ -1,3 +1,6 @@
 Require all granted
 DirectoryIndex un.html b.html c.html
 
+RewriteEngine on
+
+RewriteRule ^alice.html$ bob.html
