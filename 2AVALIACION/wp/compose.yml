@@ -10,6 +10,7 @@ services:
     volumes:
       - ./app:/app
       - ./apache/wordpress.conf:/etc/apache2/sites-enabled/wordpress.conf
+      - ./apache/certs:/certificados
     networks:
       rede_test:
         aliases:
