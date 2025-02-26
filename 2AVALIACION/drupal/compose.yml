@@ -1,0 +1,60 @@
+services:
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - 80:80
+
+    networks:
+      rede_test:
+        aliases:
+          - test.lan
+  web:
+    build: apache
+    hostname: web
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./app:/app
+      - ./apache/drupal.conf:/etc/apache2/sites-enabled/drupal.conf
+      - ./apache/certs:/certificados
+    networks:
+      rede_test:
+        aliases:
+          - daw.loseyourip.com
+          - www.daw.loseyourip.com
+  basededatos:
+    image: mariadb
+    environment:
+      MARIADB_ROOT_PASSWORD: abc123.
+      MARIADB_USER: user_ejemplo
+      MARIADB_PASSWORD: abc123.
+      MARIADB_DATABASE: bd_ejemplo
+    volumes:
+      - datos:/var/lib/mysql
+    networks:
+      - rede_test
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      - PMA_HOST=basededatos
+    networks:
+      - rede_test
+  cliente:
+    hostname: cliente
+    image: brunosct/debian12-cliente-firefox
+    environment:
+      - DISPLAY=${DISPLAY}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    networks:
+      - rede_test
+
+networks:
+  rede_test:
+volumes:
+  datos:

@@ -1,0 +1,25 @@
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx/test.lan.conf:/etc/nginx/conf.d/test.lan.conf
+      - ./html:/html
+    networks:
+      rede_test:
+        aliases:
+          - test.lan
+  cliente:
+    hostname: cliente
+    image: brunosct/debian12-cliente-firefox
+    networks:
+      - rede_test
+    environment:
+      - DISPLAY=${DISPLAY}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+
+networks:
+  rede_test:

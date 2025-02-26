@@ -1,0 +1,40 @@
+version: "3.8"
+
+services:
+  apache:
+    build:
+      context: .
+      dockerfile: apache/Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./:/code
+      - ./apache/django.lan.conf:/etc/apache2/sites-enabled/django.lan.conf
+    environment:
+      - PYHTONPATH=/code:$PYHTONPATH
+    networks:
+      rede_test:
+        aliases:
+          - "django.lan"
+  app:
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - 80:80
+    volumes:
+      - /nginx/django.lan.conf:/etc/nginx/conf.d/django.lan.conf
+
+  cliente:
+    hostname: cliente
+    image: brunosct/debian12-cliente-firefox
+    environment:
+      - DISPLAY=${DISPLAY}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    networks:
+      - rede_test
+
+networks:
+  rede_test:

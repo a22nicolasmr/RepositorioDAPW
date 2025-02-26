@@ -13,8 +13,8 @@ services:
     networks:
       rede_test:
         aliases:
-          - daw.loseyourip.com
-          - www.daw.loseyourip.com
+          - nicoDAPW.ddnsgeek.com
+          - www.nicoDAPW.ddnsgeek.com
 
   cliente:
     hostname: cliente
@@ -39,7 +39,7 @@ services:
       - 3306:3306
     networks:
       - rede_test
-  
+
   adminer:
     image: adminer
     restart: always
