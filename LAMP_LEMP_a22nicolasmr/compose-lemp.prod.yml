@@ -1,0 +1,15 @@
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      ./prestashop_8.2.1:/app
+      #vhost nginx
+      #certificados
+  phpserver:
+    build: php-lemp
+    volumes:
+      ./prestashop_8.2.1:/app
+      #php.ini

@@ -1,0 +1,1 @@
+# Copia da BD unha vez instalado o servico e exportada

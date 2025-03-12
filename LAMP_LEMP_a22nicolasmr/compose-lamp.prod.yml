@@ -1,0 +1,11 @@
+services:
+  apache:
+    build: apache-php-lamp
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      ./prestashop_8.2.1:/app
+      #vhost apache
+      #php.ini
+      #certificados

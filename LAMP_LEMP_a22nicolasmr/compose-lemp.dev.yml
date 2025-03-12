@@ -1,0 +1,50 @@
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./joomla:/app
+      - ./nginx-lemp/vhost-nginx.conf:/etc/nginx/conf.d/vhost-nginx.conf
+      - ./certs:/certs
+      - ./php-lemp/www.conf:/etc/php/8.2/fpm/pool.d/www.conf
+      - ./nginx-lemp/php.ini:/etc/php/8.2/fpm/php.ini
+      #vhost nginx
+      #certificados
+    networks:
+      redelamplemp:
+        aliases:
+          - joomla.lan
+          - www.joomla.lan
+  phpserver:
+    build: php-lemp
+    volumes:
+      - ./joomla:/app
+      #php.ini
+    networks:
+      redelamplemp:
+  basededatos:
+    image: mysql:latest
+    env_file:
+      - .env.dev
+      #Configuracion da BD de desenrolo
+
+    volumes:
+      - datos:/var/lib/mysql
+    networks:
+      redelamplemp:
+  #phpmuadmin se se necesita
+  cliente:
+    hostname: cliente
+    image: brunosct/debian12-cliente-firefox
+    networks:
+      - redelamplemp
+    environment:
+      - DISPLAY=${DISPLAY}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+volumes:
+  datos:
+networks:
+  redelamplemp:
